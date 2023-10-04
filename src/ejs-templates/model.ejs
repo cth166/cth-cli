@@ -1,0 +1,19 @@
+import { Table, Column } from 'sequelize-typescript';
+import { BaseModel } from './BaseModel';
+
+interface <%= capitalizeInitialName %>Attributes {
+    id: number
+    name: string
+}
+
+@Table({
+    tableName: '<%= capitalizeInitialName %>'
+})
+class <%= capitalizeInitialName %> extends BaseModel<<%= capitalizeInitialName %>Attributes> {
+
+    @Column
+    declare name: string;
+
+}
+
+export { <%= capitalizeInitialName %> }

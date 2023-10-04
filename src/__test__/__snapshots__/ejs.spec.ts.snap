@@ -1,0 +1,24 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ejs-render > given an absolute path 1`] = `
+"import { Table, Column } from 'sequelize-typescript';
+import { BaseModel } from './BaseModel'
+
+interface UserAttributes {
+    id: number
+    name: string
+}
+
+@Table({
+    tableName: 'User'
+})
+class User extends BaseModel<UserAttributes> {
+
+    @Column
+    declare name: string;
+
+}
+
+export { User }
+"
+`;

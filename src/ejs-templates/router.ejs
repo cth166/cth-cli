@@ -1,0 +1,50 @@
+import Router from '@koa/router';
+import { <%= capitalizeInitialName %> } from '../db/models';
+
+const <%= name %>_router = new Router({ prefix: '/<%= name %>' });
+
+// find
+<%= name %>_router.get('/:id', async (ctx) => {
+    const { id } = ctx.params
+    const <%= name %> = await <%= capitalizeInitialName %>.findOne({
+        // attributes: {
+        //     exclude: ['createdAt', 'updatedAt']
+        // },
+        where: { id },
+        // raw: true
+    })
+    ctx.body = <%= name %>
+})
+
+// add
+<%= name %>_router.post('/', async (ctx) => {
+    const <%= name %>info = ctx.request.body as <%= capitalizeInitialName %>
+    const <%= name %> = await <%= capitalizeInitialName %>.create(<%= name %>info, { raw: true })
+    ctx.body = <%= name %>
+})
+
+// modify
+<%= name %>_router.put('/', async (ctx) => {
+    const <%= name %>info = ctx.request.body as <%= capitalizeInitialName %>
+    const <%= name %> = await <%= capitalizeInitialName %>.findByPk(<%= name %>info.id)
+    const res = await <%= name %>?.update(<%= name %>info)
+    ctx.body = res
+})
+
+// delete
+<%= name %>_router.delete('/:id', async (ctx, next) => {
+    const { id } = ctx.params
+    if (id === 'all') {
+        return await next()
+    }
+    const res = await <%= capitalizeInitialName %>.destroy({ where: { id } })
+    ctx.body = res
+})
+
+// delete all
+<%= name %>_router.delete('/all', async (ctx) => {
+    const res = await <%= capitalizeInitialName %>.destroy({ truncate: true })
+    ctx.body = res
+})
+
+export { <%= name %>_router };
